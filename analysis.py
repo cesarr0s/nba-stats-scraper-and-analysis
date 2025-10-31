@@ -52,11 +52,11 @@ data_per_min.drop(columns=['PLAYER_ID', 'Year', 'PLAYER' ], inplace=True)#drop u
 data_per_min = data_per_min[data_per_min['MIN'] >= 50]#filter players with less than 50 minutes played
 
 
-# #Create a heatmap
-# plt.figure(figsize=(12,10))
-# sns.heatmap(data_per_min.corr(), annot=True, fmt=".2f", cmap='coolwarm', square=True)
-# plt.title("Correlation Matrix of Per Minute Stats")
-# plt.show()
+#Create a heatmap
+plt.figure(figsize=(12,10))
+sns.heatmap(data_per_min.corr(), annot=True, fmt=".2f", cmap='coolwarm', square=True)
+plt.title("Correlation Matrix of Per Minute Stats")
+plt.show()
 
 # fig = px.histogram(x=rs_df['MIN'], histnorm = 'percent') #minutes played in season vs percent of players
 # fig.update_layout(bargap=0.1, xaxis_title_text='Minutes Played in Season', yaxis_title_text='Percent of Players',)
