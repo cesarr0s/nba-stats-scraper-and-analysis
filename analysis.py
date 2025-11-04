@@ -56,7 +56,7 @@ data_per_min = data_per_min[data_per_min['MIN'] >= 50]#filter players with less 
 plt.figure(figsize=(12,10))
 sns.heatmap(data_per_min.corr(), annot=True, fmt=".2f", cmap='coolwarm', square=True)
 plt.title("Correlation Matrix of Per Minute Stats")
-plt.show()
+# plt.show()
 
 # fig = px.histogram(x=rs_df['MIN'], histnorm = 'percent') #minutes played in season vs percent of players
 # fig.update_layout(bargap=0.1, xaxis_title_text='Minutes Played in Season', yaxis_title_text='Percent of Players',)
@@ -114,5 +114,22 @@ for col in change_per_100_df.columns[1:]:
 fig.update_layout(title='NBA League Stats Per 100 Possessions Over Time', xaxis_title='Season Starting Year', yaxis_title='Stat Per 100 Possessions')
 fig.show()
 
-# print(change_per_48_df)
-# print(change_per_100_df)d
+player_name = "LeBron James"  # replace with the player's name
+player_stats = rs_df[data['PLAYER'] == player_name]
+player_stats = player_stats.sort_values('season_start_year')
+print(player_stats)
+fig = go.Figure()
+for col in total_cols:
+    fig.add_trace(go.Scatter(x=player_stats['season_start_year'], y=player_stats[col], name=col))
+fig.update_layout(title=f'{player_name} Total Stats Over Seasons', xaxis_title='Season Starting Year', yaxis_title='Total Stat')
+fig.show()
+
+# for col in total_cols:
+col = 'PTS'
+fig = go.Figure()
+for player in rs_df['PLAYER'].unique():
+    player_stats = rs_df[rs_df['PLAYER'] == player]
+    player_stats = player_stats.sort_values('season_start_year')
+    fig.add_trace(go.Scatter(x=player_stats['season_start_year'], y=player_stats[col], name=player, mode='lines'))
+fig.update_layout(title=f'NBA Players {col} Over Seasons', xaxis_title='Season Starting Year', yaxis_title=col)
+fig.show()
