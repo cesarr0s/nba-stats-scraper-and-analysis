@@ -4,7 +4,7 @@ Customizable seasons for all seasons tracked on nba.com.
 <br>
 Cleans data and deposits into Excel Spreadsheet.
 <br>
-Uses pandas to organiza data in Python.
+Uses pandas to organize data in Python.
 <br>
 Removes unnecessary categories and normalizes to per minute stats.
 <br>
