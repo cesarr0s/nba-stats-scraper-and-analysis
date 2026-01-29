@@ -10,12 +10,12 @@ import plotly.graph_objects as go
 
 pio.renderers.default = "browser"
 
-# Pandas display options
+#pandas display config
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 200)
 pd.set_option('display.max_colwidth', 50)
 
-# Initialize empty DataFrame
+#empty dataframe
 table_headers = None
 df_cols = None
 df = pd.DataFrame()
@@ -27,7 +27,7 @@ data['season_start_year'] = data['Year'].str[:4].astype(int)#extract starting ye
 #print(data.TEAM.unique())
 data['Season_type'] = data['Season_type'].replace('Regular%20Season', 'Regular Season')#clean season type names
 rs_df = data[data['Season_type'] == 'Regular Season']#get regular season data
-playoffs_df = data[data['Season_type'] == 'Playoffs']#geta playoffs data
+playoffs_df = data[data['Season_type'] == 'Playoffs']#get playoffs data
 #print(data.columns)
 total_cols = ['MIN', 'FGM', 'FGA', 'FG3M', 'FG3A', 'FTM', 'FTA', 
               'OREB', 'DREB', 'AST', 'STL', 'BLK', 'TOV', 'PTS']#columns to sum and calculate per minute stats
@@ -52,43 +52,44 @@ data_per_min.drop(columns=['PLAYER_ID', 'Year', 'PLAYER' ], inplace=True)#drop u
 data_per_min = data_per_min[data_per_min['MIN'] >= 50]#filter players with less than 50 minutes played
 
 
-#Create a heatmap
+#heatmap creation
 plt.figure(figsize=(12,10))
 sns.heatmap(data_per_min.corr(), annot=True, fmt=".2f", cmap='coolwarm', square=True)
 plt.title("Correlation Matrix of Per Minute Stats")
-# plt.show()
+plt.show()
 
-# fig = px.histogram(x=rs_df['MIN'], histnorm = 'percent') #minutes played in season vs percent of players
-# fig.update_layout(bargap=0.1, xaxis_title_text='Minutes Played in Season', yaxis_title_text='Percent of Players',)
-# fig.show()
+fig = px.histogram(x=rs_df['MIN'], histnorm = 'percent') #minutes played in season vs percent of players
+fig.update_layout(bargap=0.1, xaxis_title_text='Minutes Played in Season', yaxis_title_text='Percent of Players',)
+fig.show()
 
-# def hist_data(df=rs_df, min_MIN=0, min_GP=0):#function to get histogram data with min minutes and min games played filters
-#     return df.loc[(df['MIN']>=min_MIN) & (df['GP']>=min_GP), 'MIN']/\
-#     df.loc[(df['MIN']>=min_MIN) & (df['GP']>=min_GP), 'GP']
-# fig = go.Figure()
+def hist_data(df=rs_df, min_MIN=0, min_GP=0):#function to get histogram data with min minutes and min games played filters
+    return df.loc[(df['MIN']>=min_MIN) & (df['GP']>=min_GP), 'MIN']/\
+    df.loc[(df['MIN']>=min_MIN) & (df['GP']>=min_GP), 'GP']
+fig = go.Figure()
 
-# fig.add_trace(go.Histogram(x=hist_data(rs_df,50,5), histnorm='percent', name='Regular Season',
-#                            xbins={'start':0,'end':46,'size':1}))
-# fig.add_trace(go.Histogram(x=hist_data(playoffs_df,5,1), histnorm='percent',
-#                            name='Playoffs', xbins={'start':0,'end':46,'size':1}))
-# fig.update_layout(barmode='overlay', xaxis_title_text='Minutes Per Game', yaxis_title_text='Percent of Players',)
-# fig.update_traces(opacity=0.5)
-# fig.show()
+fig.add_trace(go.Histogram(x=hist_data(rs_df,50,5), histnorm='percent', name='Regular Season',
+                           xbins={'start':0,'end':46,'size':1}))
+fig.add_trace(go.Histogram(x=hist_data(playoffs_df,5,1), histnorm='percent',
+                           name='Playoffs', xbins={'start':0,'end':46,'size':1}))
+fig.update_layout(barmode='overlay', xaxis_title_text='Minutes Per Game', yaxis_title_text='Percent of Players',)
+fig.update_traces(opacity=0.5)
+fig.show()
 
+#create new chart with more advanced stats, using stats already known
 change_df = data.groupby('season_start_year')[total_cols].sum().reset_index()
 change_df['POSS_est'] = change_df['FGA']-change_df['OREB']+change_df['TOV']+0.44*change_df['FTA']
 change_df = change_df[list(change_df.columns[0:2])+['POSS_est']+list(change_df.columns[2:-1])]
 
-change_df['FG%'] = change_df['FGM']/change_df['FGA']
-change_df['3PT%'] = change_df['FG3M']/change_df['FG3A']
-change_df['FT%'] = change_df['FTM']/change_df['FTA']
-change_df['AST%'] = change_df['AST']/change_df['FGM']
-change_df['FG3A%'] = change_df['FG3A']/change_df['FGA']
-change_df['PTS/FGA'] = change_df['PTS']/change_df['FGA']
-change_df['FG3M/FGM'] = change_df['FG3M']/change_df['FGM']
-change_df['FTA/FGA'] = change_df['FTA']/change_df['FGA']
-change_df['TRU%'] = 0.5*change_df['PTS']/(change_df['FGA']+0.475*change_df['FTA'])
-change_df['AST_TOV'] = change_df['AST']/change_df['TOV']
+change_df['FG%'] = change_df['FGM']/change_df['FGA']#fg percentage
+change_df['3PT%'] = change_df['FG3M']/change_df['FG3A']#3 pt percentage
+change_df['FT%'] = change_df['FTM']/change_df['FTA']#ft percentage
+change_df['AST%'] = change_df['AST']/change_df['FGM']#assists to field goals made
+change_df['FG3A%'] = change_df['FG3A']/change_df['FGA']#3 points attempted to field goals attempted
+change_df['PTS/FGA'] = change_df['PTS']/change_df['FGA']#points per field goal made
+change_df['FG3M/FGM'] = change_df['FG3M']/change_df['FGM']#3 points made to field goals made
+change_df['FTA/FGA'] = change_df['FTA']/change_df['FGA']#free throws made to field goals attempted
+change_df['TRU%'] = 0.5*change_df['PTS']/(change_df['FGA']+0.475*change_df['FTA'])#true shooting percent, points / fga +.475 free throw attemtps
+change_df['AST_TOV'] = change_df['AST']/change_df['TOV']#assist to turnover ratio
 
 #print(change_df)
 

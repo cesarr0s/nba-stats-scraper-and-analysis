@@ -12,7 +12,7 @@ df_cols = None
 df = pd.DataFrame()
 
 #years and season types for url
-years = ['2014-15', '2015-16', '2016-17', '2017-18',
+years = ['2013-14', '2014-15', '2015-16', '2016-17', '2017-18',
          '2018-19', '2019-20', '2020-21', '2021-22', '2022-23', '2023-24', '2024-25']
 season_types = ['Regular%20Season', 'Playoffs']
 
