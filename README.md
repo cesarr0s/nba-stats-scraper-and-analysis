@@ -1,6 +1,6 @@
 # NBA Data Pipeline & Analytics Platform
 
-End-to-end Python pipeline for scraping, processing, and analyzing NBA statistics across 10+ seasons, with advanced metrics and interactive visualizations.
+Python pipeline for scraping, processing, and analyzing NBA statistics across 10+ seasons, with advanced metrics and interactive visualizations.
 
 This was made to combine data scraping, pipelining, and cleaning, with basketball. I was motivated to see how the game has changed over time and hoping to build on this project in the future. 
 
@@ -53,4 +53,4 @@ This was made to combine data scraping, pipelining, and cleaning, with basketbal
 
 
 ### Dependencies Used
-pandas numpy plotly seaborn matplotlib requests openpyxl
+pandas, numpy, plotly, seaborn, matplotlib, requests, openpyxl
