@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics.pairwise import cosine_similarity
 import plotly.graph_objects as go
-from utilities.data_loader import load_data
+from utils.data_loader import load_data
 
 
 @st.cache_data

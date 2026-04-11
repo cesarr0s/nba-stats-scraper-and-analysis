@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 st.set_page_config(page_title="Player Stats", layout="wide")
 st.title("Player Career Stats")
 
-from utilities.data_loader import load_data
+from utils.data_loader import load_data
 
 
 @st.cache_data

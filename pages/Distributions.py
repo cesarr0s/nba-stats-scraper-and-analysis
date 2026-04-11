@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
-from utilities.data_loader import load_data
+from utils.data_loader import load_data
 
 
 @st.cache_data
