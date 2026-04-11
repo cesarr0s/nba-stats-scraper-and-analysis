@@ -17,8 +17,8 @@ total_cols = ['MIN', 'FGM', 'FGA', 'FG3M', 'FG3A', 'FTM', 'FTA',
 def build_per_min(data):
     per_min = data.groupby(['PLAYER', 'PLAYER_ID', 'Year'])[total_cols].sum().reset_index()
     for col in per_min.columns[4:]:
-        per_min[col] = per_min[col] / per_min['MIN'] #normalize each stat to per minute
-    per_min['FG%']      = per_min['FGM'] / per_min['FGA'] #create new stats using previous ones
+        per_min[col] = per_min[col] / per_min['MIN'] 
+    per_min['FG%']      = per_min['FGM'] / per_min['FGA'] 
     per_min['3PT%']     = per_min['FG3M'] / per_min['FG3A']
     per_min['FT%']      = per_min['FTM'] / per_min['FTA']
     per_min['FG3A%']    = per_min['FG3M'] / per_min['FGA']
@@ -27,7 +27,7 @@ def build_per_min(data):
     per_min['FTA/FGM']  = per_min['FTA'] / per_min['FGM']
     per_min['TRU%']     = 0.5 * per_min['PTS'] / (per_min['FGA'] + 0.475 * per_min['FTA']) #use true shooting% formula
     per_min['AST_TOV']  = per_min['AST'] / per_min['TOV']
-    per_min = per_min[per_min['MIN'] >= 50].drop(columns=['PLAYER_ID', 'Year', 'PLAYER'])#remove players that dont play
+    per_min = per_min[per_min['MIN'] >= 50].drop(columns=['PLAYER_ID', 'Year', 'PLAYER'])
     return per_min.dropna()
 
 per_min = build_per_min(data)

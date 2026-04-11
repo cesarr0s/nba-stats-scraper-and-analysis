@@ -56,17 +56,22 @@ with tab1:
 
 with tab2:
     per100 = change_df.copy()
-    for col in per100.columns[3:18]:
-        per100[col] = (per100[col] / per100['POSS_est']) * 100 #same thing, but (totoal stats/estimated possession) * 100 posessions
+    
+    counting_stats = ['FGM', 'FGA', 'FG3M', 'FG3A', 'FTM', 'FTA',
+                      'OREB', 'DREB', 'AST', 'STL', 'BLK', 'TOV', 'PTS']
+    
+    for col in counting_stats:
+        per100[col] = (per100[col] / per100['POSS_est']) * 100
+    
     per100.drop(columns=['MIN', 'POSS_est'], inplace=True)
 
-    selected_stats2 = st.multiselect("Select stats to display",#create variables for dropdown
+    selected_stats2 = st.multiselect("Select stats to display",
                                       options=list(per100.columns[1:]),
-                                      default=['PTS', 'AST', 'FG3A'],
+                                      default=['PTS', 'AST', 'FG3A%'],
                                       key='per100')
     fig2 = go.Figure()
     for col in selected_stats2:
-        fig2.add_trace(go.Scatter(x=per100['season_start_year'], y=per100[col], name=col))#display selected values over 100 poss in chart
+        fig2.add_trace(go.Scatter(x=per100['season_start_year'], y=per100[col], name=col))
     fig2.update_layout(title='NBA League Stats Per 100 Possessions Over Time',
                        xaxis_title='Season Starting Year', yaxis_title='Stat Per 100 Possessions', height=500)
     st.plotly_chart(fig2, use_container_width=True)

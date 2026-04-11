@@ -16,6 +16,7 @@ rs_df = data[data['Season_type'] == 'Regular Season']
 
 total_cols = ['MIN', 'FGM', 'FGA', 'FG3M', 'FG3A', 'FTM', 'FTA',
               'OREB', 'DREB', 'AST', 'STL', 'BLK', 'TOV', 'PTS']
+st.title("Player Similarity")
 
 mode = st.radio("Compare by", ["Career (All Seasons)", "Single Season"])
 if mode == "Single Season":
