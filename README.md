@@ -1,8 +1,10 @@
 # NBA Data Dashboard
 
-This project is an interactive NBA analytics dashboard built with Streamlit, featuring player comparison tools, league-wide trend analysis, statistical visualizations, and a player similarity engine using machine learning.
+## Overview
 
-NBA player data contains the 1996–2025 seasons. 
+This project explores NBA player performance and league evolution using advanced statistical metrics and machine learning techniques.
+
+It transforms raw NBA play-by-play data into interactive insights, including player archetype similarity, efficiency trends, and historical league-wide changes in style of play.
 
 # Link
 https://nbastatsdashboard.streamlit.app/
@@ -18,7 +20,7 @@ https://nbastatsdashboard.streamlit.app/
 
 * Tracks how the NBA has changed over time
 * Compare trends in per-48 minutes and per-100 possession metrics
-* Showcases trends in multiple high level stats
+* Visualizes league-wide trends across multiple metrics
 
 ## Player Stats
 
@@ -37,17 +39,22 @@ https://nbastatsdashboard.streamlit.app/
 * Shows relationships between major stats
 * Identifies stat dependencies
 
+# Key Insights
+
+* Three-point attempt rate have increased significantly over time, reflecting modern basketballs focus on spacing
+* True Shooting % is a better indicator at determining a player's offensive efficiency
+
 # Analytical Methods
 
 * Per-48 minute normalization
-* Per-100 Posession scaling
+* Per-100 Possession scaling
 * True Shooting %
 * Assist / Turnover Ratio
 * Cosine similarity to find closest players
 * Z score standardization for feature scaling
 
 # Data  
-* Data sourced from nba.com/stats API
+* Data sourced from NBA stats API
 * Collected both regular season and playoffs data
 
 # Tech Stack
