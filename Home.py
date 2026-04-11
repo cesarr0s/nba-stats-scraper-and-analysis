@@ -17,7 +17,7 @@ def home():
     ## Links
     - GitHub: https://github.com/cesarr0s
     - LinkedIn: https://www.linkedin.com/in/demetriorosales
-    - Live App: https://nbastatsdashboard.streamlit.app
+    - Website: https://nbastatsdashboard.streamlit.app
     """)
 
 home_page = st.Page(home, title="Home")
