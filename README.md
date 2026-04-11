@@ -1,56 +1,58 @@
-# NBA Data Pipeline & Analytics Platform
+# NBA Data Dashboard
 
-Python pipeline for scraping, processing, and analyzing NBA statistics across 10+ seasons, with advanced metrics and interactive visualizations.
+This project is an interactive NBA analytics dashboard built with Streamlit, featuring player comparison tools, league-wide trend analysis, statistical visualizations, and a player similarity engine using machine learning.
 
-This was made to combine data scraping, pipelining, and cleaning, with basketball. I was motivated to see how the game has changed over time and hoping to build on this project in the future. 
+It processes NBA player data from the 1996–2025 seasons and transforms it into advanced basketball metrics and insights. 
 
----
+# Link
+https://nbastatsdashboard.streamlit.app/
 
-## Outputs
+# Features
+## Player Similarity
 
-### League Trends (Per 100 Possessions)
-![Per 100 Stats](figures/LeagueStatsPer100OverTime.png)
+* Finds statistically similar players using cosine similarity
+* Includes interactive radar charts and a customizable list of most similar players
+* Uses standardized per-minute stats to determine playstyles while applying a minutes threshold
 
-### League Trends (Per 48 Minutes)
-![Per 48 Stats](figures/LeagueStatsPer48OverTime.png)
+## League Trends
 
-### Player Analysis (LeBron James)
-![LeBron](figures/LebronOverTime.png)
+* Tracks how the NBA has changed over time
+* Compare trends in per-48 minutes and per-100 possession metrics
+* Showcases trends in multiple high level stats
 
-### Playoffs vs Regular Season Minutes
-![Minutes](figures/PlayoffsVsRSMinutes.png)
+## Player Stats
 
-### Correlation Matrix
-![Matrix](figures/matrix.png)
+* View career or single season stats
+* Compare multiple players over time
+* Interactive visuals for each stat
 
----
+## Distributions
 
-## Features
+* Minutes played distribution
+* Compare rotations in regular season vs playoffs
+* Filter rotation level players
 
-- Scrapes NBA statistics across multiple seasons using NBA API endpoints
-- Handles request headers and rate limiting to avoid blocking
-- Cleans and normalizes large datasets using Pandas
-- Engineers advanced metrics:
-  - True Shooting % (TS%)
-  - Assist-to-Turnover Ratio (AST/TOV)
-  - Possession-based statistics
-- Implements:
-  - Per-48 minute normalization
-  - Per-100 possession normalization
-- Generates:
-  - Correlation heatmaps
-  - Distribution histograms
-  - Time-series trend analysis
-  - Player-specific analytics
+## Correlations
 
----
+* Shows relationships between major stats
+* Identifies stat dependencies
 
-## Tech Stack
+# Analytical Methods
 
-- **Languages:** Python  
-- **Libraries:** Pandas, NumPy, Plotly, Seaborn, Matplotlib, Requests  
-- **Data Source:** NBA.com Stats API  
+* Per-48 minute normalization
+* Per-100 Posession scaling
+* True Shooting %
+* Assist / Turnover Ratio
+* Cosine similarity to find closest players
+* Z score standardization for feature scaling
 
+# Data  
+* Data sourced from Nba.com/stats API
+* Collected both regular season and playoffs data
 
-### Dependencies Used
-pandas, numpy, plotly, seaborn, matplotlib, requests, openpyxl
+# Tech Stack
+* Python
+* Streamlit
+* Pandas / Numpy
+* Scikit-learn
+* Plotly
