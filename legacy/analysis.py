@@ -34,22 +34,9 @@ total_cols = ['MIN', 'FGM', 'FGA', 'FG3M', 'FG3A', 'FTM', 'FTA',
 #print(data.corr())
 
 data_per_min = data.groupby(['PLAYER', 'PLAYER_ID', 'Year'])[total_cols].sum().reset_index()
+data_per_min = data_per_min[data_per_min['MIN'] >= 50]  # Filter players with less than 50 minutes BEFORE per-minute calculations
 for col in data_per_min.columns[4:]:
     data_per_min[col] = data_per_min[col] / data_per_min['MIN']
-    
-#create detailed per min stats
-data_per_min['FG%'] = data_per_min['FGM'] / data_per_min['FGA']
-data_per_min['3PT%'] = data_per_min['FG3M'] / data_per_min['FG3A']
-data_per_min['FT%'] = data_per_min['FTM'] / data_per_min['FTA']
-data_per_min['FG3A%'] = data_per_min['FG3M'] / data_per_min['FGA']
-data_per_min['PTS/FGA'] = data_per_min['PTS'] / data_per_min['FGA']
-data_per_min['FG3M/FGM'] = data_per_min['FG3M'] / data_per_min['FGM']
-data_per_min['FTA/FGM'] = data_per_min['FTA'] / data_per_min['FGM']
-data_per_min['TRU%'] = .5*data_per_min['PTS'] / (data_per_min['FGA'] + .475*data_per_min['FTA'])
-data_per_min['AST_TOV'] = data_per_min['AST'] / data_per_min['TOV']
-
-data_per_min.drop(columns=['PLAYER_ID', 'Year', 'PLAYER' ], inplace=True)#drop unneeded columns
-data_per_min = data_per_min[data_per_min['MIN'] >= 50]#filter players with less than 50 minutes played
 
 
 #heatmap creation
@@ -125,7 +112,7 @@ for col in total_cols:
 fig.update_layout(title=f'{player_name} Total Stats Over Seasons', xaxis_title='Season Starting Year', yaxis_title='Total Stat')
 fig.show()
 
-# for col in total_cols:
+# for col in total_cols: #(all players ever dont do this)
 col = 'PTS'
 fig = go.Figure()
 for player in rs_df['PLAYER'].unique():
@@ -134,3 +121,6 @@ for player in rs_df['PLAYER'].unique():
     fig.add_trace(go.Scatter(x=player_stats['season_start_year'], y=player_stats[col], name=player, mode='lines'))
 fig.update_layout(title=f'NBA Players {col} Over Seasons', xaxis_title='Season Starting Year', yaxis_title=col)
 fig.show()
+
+
+#player similarity
